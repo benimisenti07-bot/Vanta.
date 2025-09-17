@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>See if You Qualify &mdash; Vanta Scaling</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="page page--form">
+  <header class="nav">
+    <div class="nav__identity">
+      <div class="nav__brand">Vanta Scaling</div>
+      <span class="nav__tagline">Category architects for ascendant brands.</span>
+    </div>
+    <nav class="nav__links">
+      <a href="index.html" class="nav__link">Home</a>
+      <a href="qualify.html" class="nav__link nav__link--active">See if you qualify</a>
+      <a href="contact.html" class="nav__link">Contact</a>
+    </nav>
+  </header>
+
+  <main class="form-shell">
+    <section class="form-card">
+      <h1 class="form-card__title">See if we align.</h1>
+      <p class="form-card__subtitle">Share your brand metrics and our team will respond within 24 hours with the next precise move.</p>
+
+      <form id="qualifyForm" class="form">
+        <label class="form__label" for="brandName">Brand name</label>
+        <input class="form__input" type="text" id="brandName" name="brandName" placeholder="e.g., Vanta Labs" required />
+
+        <label class="form__label" for="monthlyRevenue">Monthly revenue</label>
+        <input class="form__input" type="number" id="monthlyRevenue" name="monthlyRevenue" placeholder="e.g., 150000" min="0" required />
+
+        <label class="form__label" for="annualRevenue">Annual revenue</label>
+        <input class="form__input" type="number" id="annualRevenue" name="annualRevenue" placeholder="e.g., 1800000" min="0" required />
+
+        <label class="form__label" for="growthGoal">Primary growth goal</label>
+        <textarea class="form__textarea" id="growthGoal" name="growthGoal" rows="3" placeholder="Share what you're aiming for." required></textarea>
+
+        <button type="submit" class="btn btn--primary btn--full">Check</button>
+        <p class="form__message" id="qualifyMessage" aria-live="polite"></p>
+      </form>
+    </section>
+  </main>
+
+  <footer class="footer footer--compact">
+    <div class="footer__brand">Vanta Scaling</div>
+  </footer>
+
+  <script src="scripts.js"></script>
+</body>
+</html>
