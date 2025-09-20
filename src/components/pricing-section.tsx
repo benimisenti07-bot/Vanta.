@@ -8,6 +8,7 @@ import { formatPrice } from '@/lib/utils'
 
 const pricingPlans = [
   {
+    id: 'starter',
     name: "Starter",
     price: 49,
     popular: false,
@@ -20,9 +21,11 @@ const pricingPlans = [
       "Email support for 30 days"
     ],
     buttonText: "Get Starter Guide",
-    highlight: false
+    highlight: false,
+    checkoutUrl: "/checkout/starter"
   },
   {
+    id: 'pro',
     name: "Pro",
     price: 149,
     popular: true,
@@ -38,16 +41,15 @@ const pricingPlans = [
       "60-day money-back guarantee"
     ],
     buttonText: "Get Pro Package",
-    highlight: true
+    highlight: true,
+    checkoutUrl: "/checkout/pro"
   }
 ]
 
 export function PricingSection() {
-  const handlePurchase = (planName: string) => {
-    // This would typically integrate with a payment processor
-    console.log(`Purchasing ${planName} plan`)
-    // For demo purposes, just show an alert
-    alert(`Redirecting to secure checkout for ${planName} package...`)
+  const handlePurchase = (checkoutUrl: string) => {
+    // Direct navigation to dedicated checkout page
+    window.location.href = checkoutUrl
   }
 
   return (
@@ -63,7 +65,7 @@ export function PricingSection() {
               Get the same knowledge for a fraction of the cost.
             </p>
             <div className="mt-4 text-sm text-neon-teal">
-              ⚡ Instant download • 30-day guarantee • Secure checkout
+              ⚡ Instant download • 30-day guarantee • Secure Stripe checkout
             </div>
           </div>
         </FadeIn>
@@ -141,7 +143,7 @@ export function PricingSection() {
                     {/* CTA Button */}
                     <div className="pt-4">
                       <NeonButton
-                        onClick={() => handlePurchase(plan.name)}
+                        onClick={() => handlePurchase(plan.checkoutUrl)}
                         size="lg"
                         variant={plan.highlight ? 'primary' : 'secondary'}
                         className="w-full justify-center"
@@ -150,13 +152,21 @@ export function PricingSection() {
                       </NeonButton>
                     </div>
 
-                    {/* Guarantee */}
-                    <div className="text-center pt-4">
+                    {/* Security & Guarantee */}
+                    <div className="text-center pt-4 space-y-3">
                       <div className="flex items-center justify-center gap-2 text-sm text-gray-400">
                         <svg className="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 20 20">
                           <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                         </svg>
-                        30-Day Quality Refund Policy
+                        {plan.id === 'pro' ? '60-Day Money-Back Guarantee' : '30-Day Quality Refund Policy'}
+                      </div>
+                      
+                      {/* Stripe Badge */}
+                      <div className="flex items-center justify-center gap-2 text-xs text-gray-500">
+                        <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M13.479 9.883c-1.626-.604-2.512-1.067-2.512-1.803 0-.622.511-.977 1.423-.977 1.667 0 3.379.642 4.558 1.22l.666-4.111c-.935-.446-2.847-1.177-5.49-1.177-1.87 0-3.425.489-4.536 1.401-1.155.912-1.803 2.17-1.803 3.616 0 2.512 1.803 3.647 4.002 4.625 1.803.8 2.512 1.378 2.512 2.289 0 .734-.623 1.22-1.691 1.22-1.936 0-3.957-.866-5.490-1.934l-.666 4.22c1.245.578 3.425 1.398 5.934 1.398 2.046 0 3.735-.533 4.848-1.578 1.155-1.045 1.803-2.444 1.803-4.047 0-2.579-1.803-3.824-4.558-4.936l.445.022zm7.424 5.09c1.032-2.749-.08-4.558-2.956-4.558-2.512 0-4.269 2.224-4.269 5.2 0 3.155 1.423 5.09 3.824 5.09 1.647 0 2.868-.8 3.735-1.867l-2.045-1.178c-.444.622-1.067.888-1.69.888-.978 0-1.6-.533-1.69-1.867h4.958c.08-.356.133-.8.133-1.245v-.467-.533.022zm-4.736-1.556c.08-1.067.578-1.645 1.245-1.645.666 0 1.067.578 1.067 1.645h-2.312zm-8.316-3.824c-1.334 0-2.179.622-2.668 1.556l-.267-1.334h-2.891v10.934h3.068v-5.823c.622-1.067 1.556-.888 2.023-.622l.888-2.934c-.445-.178-1.245-.355-2.023-.355l.889.022z"/>
+                        </svg>
+                        Powered by Stripe • Bank-level security
                       </div>
                     </div>
                   </div>
@@ -172,21 +182,21 @@ export function PricingSection() {
             <div className="flex justify-center items-center gap-8 flex-wrap text-sm text-gray-400">
               <div className="flex items-center gap-2">
                 <svg className="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
+                  <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 616 0z" clipRule="evenodd" />
                 </svg>
-                Secure SSL Checkout
+                256-bit SSL Encryption
               </div>
               <div className="flex items-center gap-2">
                 <svg className="w-4 h-4 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                Instant Access
+                Instant Digital Delivery
               </div>
               <div className="flex items-center gap-2">
                 <svg className="w-4 h-4 text-purple-400" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
                 </svg>
-                Email Support Included
+                24/7 Email Support
               </div>
             </div>
             
